@@ -138,7 +138,7 @@ app/
 
 ## Entrega
 
-1. Crie um branch com seu nome: `git checkout -b seu-nome`
+1. Crie uma branch para cada tarefa: `git checkout -b tarefa-1`
 2. Para cada tarefa resolvida:
    - Faça um commit descritivo
    - Abra um Pull Request individual para a tarefa
