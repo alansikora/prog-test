@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="header">
+    <h1>Minhas Tarefas</h1>
+    <%= link_to "Nova Tarefa", new_task_path, class: "btn btn-primary" %>
+  </div>
+
+  <% if @tasks.any? %>
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Título</th>
+          <th>Prioridade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr class="<%= task.completed? ? 'completed' : '' %>">
+            <td>
+              <%= button_to toggle_task_path(task), method: :patch, class: "toggle-btn" do %>
+                <%= task.completed? ? "✓" : "○" %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to task.title, task_path(task) %>
+            </td>
+            <td>
+              <span class="priority priority-<%= task.priority %>">
+                <%= "★" * task.priority %>
+              </span>
+            </td>
+            <td>
+              <%= link_to "Editar", edit_task_path(task), class: "btn btn-sm" %>
+              <%= button_to "Excluir", task_path(task), method: :delete, 
+                  data: { confirm: "Tem certeza?" }, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="empty-state">
+      <p>Nenhuma tarefa cadastrada ainda.</p>
+      <%= link_to "Criar primeira tarefa", new_task_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

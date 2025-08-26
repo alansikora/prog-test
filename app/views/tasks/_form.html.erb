@@ -1,0 +1,40 @@
+<%= form_with(model: task, local: true) do |form| %>
+  <% if task.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(task.errors.count, "erro") %> encontrado(s):</h4>
+      <ul>
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, "Título" %>
+    <%= form.text_field :title, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, "Descrição" %>
+    <%= form.text_area :description, class: "form-control", rows: 4 %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :priority, "Prioridade" %>
+    <%= form.select :priority, options_for_select((1..5).map {|i| ["#{i} estrela#{'s' if i > 1}", i]}, task.priority), 
+        {}, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :completed, class: "checkbox-label" do %>
+      <%= form.check_box :completed %>
+      Tarefa concluída
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit task.new_record? ? "Criar Tarefa" : "Atualizar Tarefa", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", tasks_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
