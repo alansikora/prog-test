@@ -78,6 +78,11 @@
   background-color: #f5f5f5;
 }
 
+.completed .tasks-title {
+  opacity: 0.8; 
+  text-decoration: line-through underline;
+  color: #888;
+}
 
 /* Toggle button */
 .toggle-btn {
