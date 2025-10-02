@@ -1,9 +1,32 @@
 <div class="container">
   <div class="header">
+    <%= form_with url: tasks_path, method: :get, local: true, class: "filters" do %>
+      <div class="filter-group">
+        <label for="status">Status</label>
+        <%= select_tag :status,
+      options_for_select(
+        [['Todas','all'], ['Pendentes','pending'], ['Concluídas','completed']],
+        params[:status].presence || 'all'
+      ),
+      id: 'status'
+    %>
+      </div>
+      <div class="filter-group">
+        <label for="priority">Prioridade</label>
+        <%= select_tag :priority,
+      options_for_select(
+        [['Todas','all'], ['Baixa (1–2)','low'], ['Média (3)','medium'], ['Alta (4–5)','high']],
+        params[:priority].presence || 'all'
+      ),
+      id: 'priority'
+    %>
+      </div>
+      <%= submit_tag "Filtrar", class: "btn btn-primary" %>
+      <%= link_to "Limpar", tasks_path, class: "btn" %>
+    <% end %>
     <h1>Minhas Tarefas</h1>
     <%= link_to "Nova Tarefa", new_task_path, class: "btn btn-primary" %>
   </div>
-
   <% if @tasks.any? %>
     <table class="tasks-table">
       <thead>
